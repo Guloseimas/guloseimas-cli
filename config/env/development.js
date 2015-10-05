@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/musicamise',
+	db: 'mongodb://localhost/guloseimas',
 	app: {
 		title: 'guloseimas-client - Development Environment'
 	},

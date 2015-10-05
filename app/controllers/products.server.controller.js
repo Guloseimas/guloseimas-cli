@@ -10,9 +10,22 @@ var mongoose = require('mongoose'),
 	Tag = mongoose.model('Tag'),
 	Article = mongoose.model('Article'),
 	Inventory = mongoose.model('Inventory'),
+	EncomendaProperties = mongoose.model('EncomendaProperties'),
 	_ = require('lodash');
 
 
+exports.encomenda=function(req,res){
+	EncomendaProperties.findOne({}).exec(function(err, properties) {
+		if(err){
+		 res.status(400).send({
+				message: req.err
+				});
+		}
+
+		 res.json(properties);
+
+	});
+};
 
 exports.search = function(req,res){
 	var query = req.query.q;

@@ -16,8 +16,9 @@ module.exports = function(app) {
 		.get(products.esgotados);
 	app.route('/api/products/related/:productSlug')
 		.get(products.listRelated);
-
-
+	app.route('/api/products/encomenda')
+		.get(products.encomenda);
+		
 	app.route('/api/productsAll')
 		.get(products.listAll);
 
