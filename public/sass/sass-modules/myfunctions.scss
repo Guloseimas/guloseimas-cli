@@ -1,0 +1,106 @@
+@mixin responsive-sprite($map, $icon){
+  $icon-file: sprite-file($map, $icon);
+  $icon-width: image-width($icon-file);
+  $icon-height: image-height($icon-file);
+ 
+  $sprite-file: sprite-path($map);
+  $sprite-map: sprite-url($map);
+ 
+  $sprite-width: image-width($sprite-file);
+  $sprite-height: image-height($sprite-file);
+ 
+  $space-top: floor(nth(sprite-position($map, $icon), 2));
+  @if $space-top == 0 {
+    $space-top: 0px
+  }
+ 
+  width: percentage($sprite-width / $icon-width);
+  display: block;
+  height: 0;
+  padding-bottom: percentage($icon-height / $icon-width);
+  background: $sprite-map;
+  background-size: 100%;
+  background-position:0 percentage(-1 * $space-top / ( $sprite-height - $icon-height ) );
+}
+@mixin generatePadding() {
+  @for $i from 1 through 100 {
+    .pad#{$i} {
+       padding: #{$i}px #{$i}px!important;
+    }
+    .padt#{$i} {
+	     padding-top: #{$i}px!important;
+    }
+    .padb#{$i} {
+  	   padding-bottom: #{$i}px!important;
+    }
+    .padr#{$i} {
+  	   padding-right: #{$i}px!important;
+    }
+    .padl#{$i} {
+  	   padding-left: #{$i}px!important;
+    }
+    .padtpercent#{$i} {
+       padding-top: $i*1%!important;
+    }
+    .padbpercent#{$i} {
+       padding-bottom: $i*1%!important;
+    }
+    .padrpercent#{$i} {
+       padding-right: $i*1%!important;
+    }
+    .padlpercent#{$i} {
+       padding-left: $i*1%!important;
+    }
+  }
+}
+@mixin generateMargin() {
+  @for $i from 1 through 100 {
+    .marg#{$i} {
+      margin:#{$i}px #{$i}px!important;
+    }
+    .margt#{$i} {
+      margin-top: #{$i}px!important;
+    }
+    .margb#{$i} {
+      margin-bottom: #{$i}px!important;
+    }
+    .margr#{$i} {
+      margin-right: #{$i}px!important;
+    }
+    .margl#{$i} {
+      margin-left: #{$i}px!important;
+    }
+    .margtpercent#{$i} {
+      margin-top: $i*1%!important;
+    }
+    .margbpercent#{$i} {
+      margin-bottom: $i*1%!important;
+    }
+    .margrpercent#{$i} {
+      margin-right: $i*1%!important;
+    }
+    .marglpercent#{$i} {
+      margin-left: $i*1%!important;
+    }
+  }
+}
+@mixin generateLeft() {
+  @for $i from 1 through 100 {
+    .left#{$i} {
+      left:#{$i}px!important;
+    }
+    .leftpercent#{$i} {
+      left:$i*1%!important;
+    }
+  }
+}
+@mixin generateRight() {
+  @for $i from 1 through 100 {
+    .right#{$i} {
+      right:#{$i}px!important;
+    }
+    .rightpercent#{$i} {
+      right:$i*1%!important;
+    }
+  }
+}

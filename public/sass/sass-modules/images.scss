@@ -1,0 +1,160 @@
+@import "icons/*.png";
+@import "gender/*.png";
+@import "icons-menu/*.png";
+@import "icons-card/*.png";
+@import "favicon/*.png";
+@import "myfunctions";
+
+$icons: sprite-map("icons/*.png", $spacing: 1px, $layout: smart);
+$gender: sprite-map("gender/*.png", $spacing: 1px, $layout: smart);
+$icons-menu: sprite-map("icons-menu/*.png", $spacing: 1px, $layout: smart);
+$icons-card: sprite-map("icons-card/*.png", $spacing: 1px, $layout: smart);
+@include all-icons-sprites; 
+@include all-icons-menu-sprites; 
+@include all-favicon-sprites; 
+@include all-icons-card-sprites; 
+
+.icon {
+	display: block;
+	&.icons-card-CARTAO_DE_CREDITO_VISA{
+		@include sprite-dimensions($icons-card,CARTAO_DE_CREDITO_VISA);
+	}
+	&.icons-card-CARTAO_DE_CREDITO_MASTERCARD{
+		@include sprite-dimensions($icons-card,CARTAO_DE_CREDITO_MASTERCARD);
+	}
+	&.icons-card-CARTAO_DE_CREDITO_AMERICAN_EXPRESS{
+		@include sprite-dimensions($icons-card,CARTAO_DE_CREDITO_AMERICAN_EXPRESS);
+	}
+	&.icons-card-CARTAO_DE_CREDITO_DINERS{
+		@include sprite-dimensions($icons-card,CARTAO_DE_CREDITO_DINERS);
+	}
+	&.icons-card-CARTAO_DE_CREDITO_HIPERCARD{
+		@include sprite-dimensions($icons-card,CARTAO_DE_CREDITO_HIPERCARD);
+	}
+	&.icons-card-CARTAO_DE_CREDITO_AURA{
+		@include sprite-dimensions($icons-card,CARTAO_DE_CREDITO_AURA);
+	}
+	&.icons-card-CARTAO_DE_CREDITO_ELO{
+		@include sprite-dimensions($icons-card,CARTAO_DE_CREDITO_ELO);
+	}
+
+	&.icons-card-BOLETO_BRADESCO{
+		@include sprite-dimensions($icons-card,BOLETO_BRADESCO);
+	}
+	&.icons-card-BOLETO_SANTANDER{
+		@include sprite-dimensions($icons-card,BOLETO_SANTANDER);
+	}
+	&.icons-card-DEBITO_ONLINE_BRADESCO{
+		@include sprite-dimensions($icons-card,DEBITO_ONLINE_BRADESCO);
+	}
+	&.icons-card-DEBITO_ONLINE_ITAU{
+		@include sprite-dimensions($icons-card,DEBITO_ONLINE_ITAU);
+	}
+	&.icons-card-DEBITO_ONLINE_BANCO_DO_BRASIL{
+		@include sprite-dimensions($icons-card,DEBITO_ONLINE_BANCO_DO_BRASIL);
+	}
+	&.icons-card-DEBITO_ONLINE_BANRISUL{
+		@include sprite-dimensions($icons-card,DEBITO_ONLINE_BANRISUL);
+	}
+	&.icons-card-DEBITO_ONLINE_HSBC{
+		@include sprite-dimensions($icons-card,DEBITO_ONLINE_HSBC);
+	} 
+
+	
+
+	&.icons-entrar-fb2{
+		@include sprite-dimensions($icons,entrar-fb2);
+	}
+
+	&.icons-entrarfb{
+		@include sprite-dimensions($icons,entrarfb);
+	}
+	&.icons-entrarfb-mobile{
+		@include sprite-dimensions($icons,entrarfb-mobile);
+	}
+
+	&.icons-carrinho_vermelho{
+		@include sprite-dimensions($icons,carrinho_vermelho);
+	}
+	&.icons-close_1{
+		@include sprite-dimensions($icons,close_1);
+  		cursor: pointer;
+		right: 0px;
+  		top: 0px;
+		-webkit-transition: color 0.2s ease-in-out;
+		-moz-transition: color 0.2s ease-in-out;
+		-o-transition: color 0.2s ease-in-out;
+		transition: color 0.2s ease-in-out;
+	}
+	&.icons-feminino{
+		@include responsive-sprite($gender, feminino);
+	}
+	&.icons-feminino-o{
+		@include responsive-sprite($gender, feminino-o);
+	}
+	&.icons-masculino{
+		@include responsive-sprite($gender,masculino);
+	}
+	&.icons-masculino-o{
+		@include responsive-sprite($gender,masculino-o);
+	}
+	&.icons-infantil{
+		@include responsive-sprite($gender,infantil);
+	}
+	&.icons-infantil-o{
+		@include responsive-sprite($gender,infantil-o);
+	}
+	
+	&.icons-pagseguro_info{
+		@include sprite-dimensions($icons,pagseguro_info);
+	}
+	&.icons-new{
+		@include sprite-dimensions($icons,new);
+	}
+	&.icons-promotion{
+		@include sprite-dimensions($icons,promotion);
+	}
+	&.icons-out{
+		@include sprite-dimensions($icons,out);
+	}
+	&.icons-simbolo_Logo{
+		@include sprite-dimensions($icons,simbolo_Logo);
+	}
+
+	&.icons-menu-camisa-cor{
+		@include sprite-dimensions($icons-menu,camisa-cor);
+	}
+	&.icons-menu-camisa{
+		@include sprite-dimensions($icons-menu,camisa);
+	}
+	&.icons-menu-caneca-cor{
+		@include sprite-dimensions($icons-menu,caneca-cor);
+	}
+	&.icons-menu-caneca{
+		@include sprite-dimensions($icons-menu,caneca);
+	}
+	&.icons-menu-contato-cor{
+		@include sprite-dimensions($icons-menu,contato-cor);
+	}
+	&.icons-menu-contato{
+		@include sprite-dimensions($icons-menu,contato);
+	}
+	&.icons-menu-logo-cor{
+		@include sprite-dimensions($icons-menu,logo-cor);
+	}
+	&.icons-menu-logo{
+		@include sprite-dimensions($icons-menu,logo);
+	}
+	&.icons-menu-parceiros-cor{
+		@include sprite-dimensions($icons-menu,parceiros-cor);
+	}
+	&.icons-menu-parceiros{
+		@include sprite-dimensions($icons-menu,parceiros);
+	}
+
+
+
+
+
+
+}

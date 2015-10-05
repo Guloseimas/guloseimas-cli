@@ -1,0 +1,57 @@
+<section class="products-page"  data-ng-controller="ProductsController" data-ng-init="findEsgotados()"  >
+	<!-- content -->
+<div class="container">
+	<!-- start sidebar -->
+	<!-- start content -->
+	<div class="products row">
+		<div class="order_bar col-xs-12 padb20">
+			<h4>Musicamise - <span ng-bind="products.length"> </span> itens </h4>
+		     <div class="clearfix"></div>	
+		</div>
+		<!-- grids_of_4 -->
+		<div scrolly="findNextPageEsgotados()" class="col-lg-12">
+		 	<div >
+			  	<div class="col-xs-6 col-md-3" ng-repeat="product in products" >
+					<div class="content_box">
+						<a ng-href="#!/product/{{product.slug}}" ng-mouseenter="picture=true" ng-mouseleave="picture=false">
+							<i ng-if="!product.price" class="icon icons-out" style="    position: absolute;    top: 0;     right: 15px;"></i>
+			   	   	 		<img ng-hide="product.images.length>1&&picture" placehold="{{product.images[0].url}}" class="img-responsive" alt=""/>
+			   	   	 		<img ng-if="product.images.length>1" ng-show="picture" placehold="{{product.images[1].url}}" class="img-responsive" alt="" />
+			   		  	</a>
+			    		<h4>
+		    				<a ng-href="#!/product/{{product.slug}}" ng-bind="product.title">  
+			    			</a>
+		    			</h4>
+				     	<p>{{product.type}}</p>
+					 	<div class="grid_1 simpleCart_shelfItem">
+						 	<!-- <div class="item_add">
+						 		<span class="item_price">
+							 		<h6>
+							 			<span class="price-new">{{product.priceFormatted}}</span>
+							 			<span ng-show="product.priceCompareWith>0" class="price-old">{{product.priceOldFormatted}}
+						 				</span> 
+						 			</h6>
+					 			</span>
+				 			</div> -->
+							<!-- <div class="item_add"><span class="item_price"><a href="" >add to cart</a></span></div> -->
+					 	</div>
+				   	</div>
+				</div >
+			</div>
+			<div class="check" ng-if="products.length<=0">
+				<div class="col-md-9 cart-items">
+			 		<h1>Desculpe não temos produtos com esse filtro :(</h1>
+					<h3><a href="#!/products"> Continue Comprando :) </a></h3>
+				</div>
+			</div>
+		</div>
+			<!-- end grids_of_4 -->
+		
+	</div>
+	<div class="clearfix"></div>
+	
+	<!-- end content -->
+</div>
+
+
+</section>

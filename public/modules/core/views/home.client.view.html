@@ -1,0 +1,142 @@
+<section class="home-page" data-ng-controller="HomeController" ng-init='inicialCall()' >
+	<div class="arriv">
+				<div class="container">
+					<div class="arriv-top">
+					    <!-- Jssor Slider Begin -->
+					   	<div class="col-md-12">
+				              <div id="owl-demo" class="owl-carousel"  >
+
+				                <div class="item" ng-repeat="image in mainContent.images" ng-init="$last?initCarousel('owl-demo'):angular.noop()">
+				                	<a ng-href="{{image.redirectUrl||''}}" ng-click="clickGAbanner(image.redirectUrl)" target="_blank">
+				                		<img  class="img-responsive" placehold="{{image.url}}" alt="{{image.name}}"> 
+			                		</a>
+			                		 <p ng-if="image.subtitle" ng-bind="image.subtitle"></p>
+			                	</div>
+
+				              </div>
+			            </div>
+						<div class="clearfix"> </div>
+					
+					</div>		 
+					<div ng-if="frontCollections.length>0" class="arriv-top">
+
+						<div ng-if="frontCollections.length>0" class="col-sm-4 " ng-class="frontCollections[0].slug">
+							<label class="gender-label" ng-bind="frontCollections[0].title"> </label>
+							<a  ng-href="/#!/products/{{frontCollections[0].gender?'gender':'collection'}}/{{frontCollections[0].slug}}" ng-mouseenter="picture=true" ng-click="clickGAgender(frontCollections[0].slug)" ng-mouseleave="picture=false">
+								<i ng-hide="picture" class="icon icons-{{frontCollections[0].slug}}-o" > </i>
+
+								<i ng-show="picture" class="icon icons-{{frontCollections[0].slug}}" > </i>
+							
+							</a>
+							
+						</div>
+						<div ng-if="frontCollections.length>1" class="col-sm-4 "  ng-class="frontCollections[1].slug">
+							<label class="gender-label" ng-bind="frontCollections[1].title"> </label>
+							<a  ng-href="/#!/products/{{frontCollections[1].gender?'gender':'collection'}}/{{frontCollections[1].slug}}" ng-click="clickGAgender(frontCollections[1].slug)" ng-mouseenter="picture=true" ng-mouseleave="picture=false">
+								<i ng-hide="picture" class="icon icons-{{frontCollections[1].slug}}-o" > </i>
+
+								<i ng-show="picture" class="icon icons-{{frontCollections[1].slug}}" > </i>
+							</a>
+							
+						</div>
+						<div  ng-if="frontCollections.length>2" class="col-sm-4 " ng-class="frontCollections[2].slug">
+							<label class="gender-label" ng-bind="frontCollections[2].title"> </label>
+							<a  ng-href="/#!/products/{{frontCollections[2].gender?'gender':'collection'}}/{{frontCollections[2].slug}}" ng-click="clickGAgender(frontCollections[2].slug)" ng-mouseenter="picture=true" ng-mouseleave="picture=false">
+								<i ng-hide="picture" class="icon icons-{{frontCollections[2].slug}}-o" > </i>
+
+								<i ng-show="picture" class="icon icons-{{frontCollections[2].slug}}" > </i>
+							</a>
+							
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+	</div>
+
+	<div class="frete-gratis margt30 margb55">
+		<div class="container">
+			<a href="#">
+				<i class="icon icons-menu-logo-cor" > </i>
+				<h3>Frete Gratis!</h3>
+			</a>
+		 	
+		</div>
+	</div>
+
+	<div class="special margb55">
+		<div class="container">
+			<h3>Em destaque</h3>
+			<div class="special-top">
+				<div id="owl-demo3" class="owl-carousel"  >
+
+	                <div class="item" ng-repeat="product in destaque" ng-init="$last?initProductsCarousel('owl-demo3'):angular.noop()">
+	                	<a ng-href="/#!/product/{{product.slug}}" ng-click="clickGAdestaque(product.slug)" ng-mouseenter="picture=true" ng-mouseleave="picture=false" >
+	                		<i ng-if="!product.newProduct&&product.priceCompareWith>0" class="icon icons-promotion" style="    position: absolute;    top: 0;     right: 0px;"></i>
+							<i ng-if="product.newProduct" class="icon icons-new" style="    position: absolute;    top: 0;     right: 0px;"></i>
+							<img ng-hide="product.images.length>1&&picture"  placehold="{{product.images[0].url}}"  class="img-responsive" alt="product.title"/>
+		   	   	 			<img ng-if="product.images.length>1" ng-show="picture"    placehold="{{product.images[1].url}}"  class="img-responsive" alt="product.title" />
+	            		</a>
+            		 	<!-- <p ng-if="image.subtitle" ng-bind="image.subtitle"></p> -->
+            		 	<div class="special-info grid_1 simpleCart_shelfItem">
+							<h5 ng-bind="product.title"></h5>
+							<div class="item_add">
+								<span class="item_price">
+									<h6 >APENAS <br>
+										<span ng-bind="product.priceFormatted"></span>
+										<br>
+										<span ng-show="product.priceCompareWith>0" class="price-old">{{product.priceOldFormatted}}
+						 				</span> 
+									</h6>
+								</span>
+							</div>
+						</div>
+	            	</div>
+
+              	</div>
+				<!-- <ul class="grid_2">
+					<li ng-repeat="product in destaque">
+							<a ng-href="/#!/product/{{product.slug}}" ng-mouseenter="picture=true" ng-mouseleave="picture=false">
+				   	   	 		<img ng-hide="product.images.length>1&&picture" ng-src="{{product.images[0].url}}"   class="img-responsive" alt=""/>
+				   	   	 		<img ng-if="product.images.length>1" ng-show="picture" ng-src="{{product.images[1].url}}"   class="img-responsive" alt="" />
+				   		  	</a>
+							<div class="special-info grid_1 simpleCart_shelfItem">
+								<h5 ng-bind="product.title"></h5>
+								<div class="item_add"><span class="item_price"><h6 >APENAS <span ng-bind="product.priceFormatted"></span></h6></span></div>
+							</div>
+					</li>
+					<div class="clearfix"> </div>
+				</ul> -->
+			</div>
+		</div>
+	</div>
+
+	
+
+
+	<div ng-show="!isEmpty(localStores)" class="parcerias margb60 margt20">
+		<div class="container">
+			<a href="#!/lojasparceiras/">
+				<i class="icon icons-menu-parceiros-cor" > </i>
+				<h3>Parcerias</h3>
+			</a>
+			<!-- Jssor Slider Begin -->
+		   	<div class="col-md-12">
+              <div id="owl-demo1" class="owl-carousel"  >
+
+                <div class="item" ng-repeat="localStore in localStores" ng-init="$last?initCarousel('owl-demo1'):angular.noop()">
+                	<a ng-href="{{localStore.images[0].redirectUrl||'#!/lojasparceiras/'+localStore.slug}}" target="_blank">
+                		<img  class="img-responsive" placehold="{{localStore.images[0].url}}" alt="{{localStore.images[0].name}}"> 
+            		</a>
+            		 <p ng-if="localStore.slug" ng-bind="localStore.title"></p>
+            	</div> 
+              </div>
+            </div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	  	ga('send', 'pageview');
+
+	</script>
+
+</section>

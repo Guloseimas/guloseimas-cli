@@ -1,0 +1,27 @@
+{
+  "name": "guloseimas-client",
+  "version": "0.0.1",
+  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js",
+  "dependencies": {
+    "angular": "#1.4.3",
+    "angular-animate": "#1.4.3",
+    "angular-block-ui": "~0.2.0",
+    "angular-bootstrap": "~0.11.2",
+    "angular-cookies": "~1.2",
+    "angular-fancybox-plus": "~1.0.2",
+    "angular-mask": "~3.0.12",
+    "angular-mocks": "~1.2",
+    "angular-resource": "~1.2",
+    "angular-sanitize": "~1.2",
+    "angular-touch": "~1.2",
+    "angular-ui-router": "#0.2.15",
+    "angular-ui-utils": "latest",
+    "bootstrap": "~3",
+    "bootstrap-sass-official": "~3.3.4",
+    "font-awesome": "fontawesome#~4.4.0",
+    "twitter-bootstrap-wizard": "~1.0.0"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
+  }
+}

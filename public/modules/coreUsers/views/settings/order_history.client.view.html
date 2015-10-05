@@ -1,0 +1,31 @@
+<section data-ng-controller="SettingsController" data-ng-init="orderHistory()"  >
+	<!-- content -->
+<div class="container">
+	<div class="user-settings">	
+	 	<div class="col-sm-2  desktop-only side-bar" ng-include="'/modules/coreUsers/views/settings/user-settings-side-bar.html'"  onload="order_li=true">
+		</div>
+		<div class="col-sm-10 cart-items">
+	 		<h1>Historico de compras</h1>
+	 		<div ng-hide="newOrders.length>0||oldOrders.length>0">
+		 		<p>
+		 			<h1>Você não possui nenhuma Compra :( </h1> 
+		 			<h3><a href="#!/products"> Faça sua primeira comprra :) </a></h3>
+		 		</p>
+	 		</div>
+	 		<h2 ng-show="newOrders.length>0">Compra Atual</h2>
+	 		<div class="order" ng-repeat="order in newOrders">
+	 			<my-bar order='order'></my-bar>
+				<div class="clearfix"> </div>
+		 	</div>
+	 		<h2 ng-if="oldOrders.length>0">Compras antigas</h2>
+		 	<div class="order" ng-repeat="order in oldOrders">
+	 			<my-bar order='order'></my-bar>
+				<div class="clearfix"> </div>
+	 			
+		 	</div>
+		</div>
+		<div class="clearfix"> </div>
+	  	
+	</div>
+</div>
+</section>

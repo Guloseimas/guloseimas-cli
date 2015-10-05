@@ -1,0 +1,246 @@
+<div data-ng-controller="HeaderController" data-ng-init="headerLoginAndCart()" >
+	<div class="top_bg " >
+		<div class="container" >
+			<div class="header_top row">
+				<div class="top_left col-xs-3">
+					<ul  class="mainmenu desktop-tablet-only" id="mainmenu">
+						<li ><a ng-href="#!/" ng-click="menu.show=false"><i class="musicamise icon icons-menu-logo-cor" > </i> </a></li>
+						<li ng-show="!isEmpty(loja.gender)"><a ng-href="" ng-click="clickIconMenu('camisas')"><i class="camisas icon icons-menu-camisa-cor"  > </i></a></li>
+						<li ng-show="!isEmpty(loja.otherProducts)"><a ng-href="" ng-click="clickIconMenu('other-products')"><i class="other-products icon icons-menu-caneca-cor"   > </i></a></li>
+						<li ng-show="!isEmpty(localStores)"  ><a ng-href="" ng-click="clickIconMenu('parceiros')"><i class="parceiros icon icons-menu-parceiros-cor" > </i></a></li>
+						<li ng-show="true"><a ng-href="" ng-click="clickIconMenu('contatos')"><i class="contato icon icons-menu-contato-cor"> </i></a></li>
+					</ul>
+					
+					<ul  class="helpmenu desktop-tablet-only">
+						<li><a href="/#!/centrodeajuda">Ajuda</a></li>|
+						<li><a href="/#!/contact">Contato</a></li>|
+						<li><a href="/#!/politicas">Formas de entrega</a></li>
+					</ul>
+					<nav id="myNavmenu" class="mobile-only navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+					  	<div class="navmenu-header">
+						  	<a class="navmenu-brand" href="#!/"> <i class="icon icons-simbolo_Logo"></i>  <span>Musicamise</span></a> 
+					  	</div>
+
+					  	<div class="nav navmenu-nav"  ng-if="!isEmpty(loja.gender)">
+						  	<h3>Genero</h3>
+					    	<a ng-repeat="(key, value) in loja.gender"  ng-href="/#!/{{key}}" ng-bind="key"></a>
+					  	</div>
+					  	<div  class="nav navmenu-nav" ng-if="!isEmpty(loja.collection)">
+						  	<h3 >Coleções</h3>
+					    	<a ng-repeat="(key, value) in loja.collection" ng-href="/#!/collection/{{key}}" ng-bind="key"></a>
+					  	</div>
+					  	<div  class="nav navmenu-nav" ng-if="!isEmpty(loja.otherProducts)" >
+						  	<h3>Acessórios</h3>
+					    	<a   ng-repeat="(key, value) in loja.otherProducts" ng-href="/#!/collection/{{key}}" ng-bind="key"></a>
+					  	</div>
+					  	<div  class="nav navmenu-nav" ng-if="!isEmpty(localStores)"  >
+						  	<h3>Parceiros</h3>
+					    	<a ng-repeat="(store,storeObj) in localStores" ng-href="/#!/lojasparceiras/{{store}}" ng-bind="storeObj.title"></a>
+					 	</div>
+					  
+					 <!--  <ul class="nav navmenu-nav">
+					    <li class="active"><a href="#">Home</a></li>
+					    <li><a href="#">Link</a></li>
+					    <li><a href="#">Link</a></li>
+					  </ul> -->
+					</nav>
+			  		<button type="button" class="mobile-only navbar-toggle floatleft" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+					   <i class="fa fa-bars fa-2x"> </i>
+				  	</button>
+				</div>
+				<div class="top_right col-xs-9 ">
+					<div class="cart box_cart">
+						<a href="/#!/cart">
+							<h3 class="marg5">
+								<i class="icon icons-carrinho_vermelho"> </i>
+								<span id="" class="" ng-bind="numberformat(order.totalItems,2)" ></span> 
+							</h3>
+						</a>	
+						<!-- <p><a href="javascript:;" class="simpleCart_empty">(empty card)</a></p> -->
+						<div class="clearfix"> </div>
+					</div>
+					<div class="floatright desktop-tablet-only margt7 ">
+						<a class="facebook" ng-href="/auth/facebook?redirect={{redirect}}" data-ng-hide="isConnectedSocialAccount('facebook')" ng-click="fbclick()" class="undecorated-link">
+							<i class=" desktop-only icon icons-entrarfb "></i>
+							<i class=" tablet-only icon icons-entrarfb-mobile "></i>
+						</a>
+					</div>
+					<div class="user-menu">
+						<div ng-if="authentication.user===''" class="login " ng-init="bindLoginEvent()" >
+							<div id="loginContainer"  class="container-expandable-box" ><a href="" id="loginButton" class="expandable-box-button"><span>Login</span></a>
+							    <div id="loginBox" class="expandable-box">                
+							        <form id="loginForm" class="expandable-box-form" ng-submit="login(user)">
+							        	<label class="error">{{login_error}}</label>
+						                <fieldset id="body">
+						                	<fieldset>
+						                          <label for="email">Email:</label>
+						                          <input type="text" ng-model='user.email' name="email" id="email">
+						                    </fieldset>
+						                    <fieldset>
+				                            	<label for="password"  ng-keyup="$event.keyCode == 13 && login(user)">Password:</label>
+					                            <input type="password" ng-model='user.password' name="password" id="password">
+						                     </fieldset>
+					                	 	<label for="rememberme"><input ng-model='user.rememberme' ng-keyup="$event.keyCode == 13 && login(user)" name="rememberme" type="checkbox" id="rememberme"> <i>Lembre-se de mim</i></label> 
+						                    <input type="submit" id="login" value="Sign in">
+
+					                	 	<div  class="notmember padt20"  >
+										  		<span> Não é membro?	<a ng-click='clickLinkMenu()' ng-href="#!/login">REGISTRE-SE</a>
+										  		</span>
+											  	<a class="facebook mobile-only floatright"  ng-href="/auth/facebook?redirect={{redirect}}" data-ng-hide="isConnectedSocialAccount('facebook')" class="undecorated-link">
+													ou <i class="icon icons-entrarfb-mobile mobile-only"></i>
+												</a>
+											</div>
+						            	</fieldset>
+	 									
+							            <span class="padb20"><a ng-click='clickLinkMenu()' href="#!/user/esquecisenha">Perdeu a senha?</a></span>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div ng-if="authentication.user!==''"  ng-init="bindUserEvent()" class="user-expandable-box">
+							<label class="userButton" >Olá, {{authentication.user.displayName }}   </label>
+							<div id="userContainer" class="container-expandable-box" >
+								<a href="" id="userButton"  class="userButton expandable-box-button" > <i class="fa fa-angle-down fa-lg"></i></a>
+							    <div id="userBox"  class="expandable-box">          
+							     	<form id="userForm" class="expandable-box-form" >
+							     		<fieldset id="body">
+								        	<ul>
+											 	<li ng-click="clickLinkMenu()"> <i class="fa fa-user"></i> <a href="#!/user/profile" > Profile </a> </li>
+												<li ng-click="clickLinkMenu()"> <i class="fa fa-history"></i> <a href="#!/user/orders" > Historico </a> </li>
+												<li ng-click="clickLinkMenu()"> <i class="fa fa-star-o"></i> <a href="#!/user/favoritos" > Favoritos </a> </li>
+												<li ng-click="clickLinkMenu()"> <i class="fa fa-power-off"></i> <a href="/auth/signout" > Logout </a>  </li>
+											</ul>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<div ng-init="bindMenuEvent()" ng-show="menu.show" id="menu-expanded" class="menu-expanded">
+		
+		<i class="fa fa-music fa-4x rightpercent10 padtpercent6"></i>
+		<i class="fa fa-music fa-3x rightpercent20 padtpercent11"></i>
+		<i class="fa fa-music fa-4x rightpercent40 padtpercent5"></i>
+		<i class="fa fa-music fa-5x rightpercent50 padtpercent2"></i>
+		<i class="fa fa-music fa-5x leftpercent10 padtpercent12"></i>
+		<i class="fa fa-music fa-2x leftpercent20 padtpercent13"></i>
+		<i class="fa fa-music fa-4x leftpercent40 padtpercent10"></i>
+		<!-- start header menu -->
+		<div ng-show="menu.name==='camisas'" class=" menu-itens camisas">
+			<div class="item" ng-repeat="(key, value) in loja.gender" >
+				<div class="header_nav">
+					<h4 ng-bind="key"></h4>
+					<ul >
+						<li><a ng-click="clickLinkMenu()" ng-href="/#!/products/gender/{{key}}">Todos os modelos</a></li>
+						<!--{{value}}-->
+						<li  ng-repeat="typeClothes in value" >
+							<a ng-click="clickLinkMenu()" ng-href="/#!/{{typeClothes}}/{{key}}" ng-bind="typeClothes"></a>
+						</li>
+
+					</ul>	
+				</div>							
+			</div>
+			<div class="item" >
+				<div class="header_nav">
+					<h4><a ng-click="clickLinkMenu()" ng-href="/#!/products/esgotados" >Esgotadas</a></h4>
+				</div>							
+			</div>
+			<!-- <div class="item"  ng-repeat="(key, value) in loja.collection" >
+				<div class="header_nav">
+					<h4 ng-bind="key"></h4>
+					<ul >
+						<li><a ng-click="clickLinkMenu()" ng-href="/#!/products/collection/{{key}}?sort=new">Todos os modelos</a></li>
+						<li  ng-repeat="typeClothes in value" >
+							<a ng-click="clickLinkMenu()" ng-href="/#!/{{typeClothes}}/collection/{{key}}" ng-bind="typeClothes"></a>
+						</li>
+
+					</ul>	
+				</div>							
+			</div> -->
+		</div>
+		<div ng-show="menu.name==='other-products'" class="row  menu-itens other-products">
+			<div class="item"  ng-repeat="(key, value) in loja.otherProducts" >
+				<div class="header_nav">
+					<h4 ng-bind="key"></h4>
+					<ul >
+						<li><a ng-click="clickLinkMenu()" ng-href="/#!/products/collection/{{key}}?sort=new">Novidades</a></li>
+						<li  ng-repeat="product in value" >
+							<a ng-click="clickLinkMenu()" ng-href="/#!/products/{{product.slug}}" ng-bind="product.title"></a>
+						</li>
+
+					</ul>	
+				</div>							
+			</div>
+		</div>
+		<div ng-show="menu.name==='parceiros'" class="row  menu-itens parceiros">
+			<div class="item"  ng-repeat="(store,storeObj) in localStores" >
+				<div class="header_nav">
+					<h4 ng-bind="storeObj.title"></h4>
+					<ul>
+						<li><a ng-click="clickLinkMenu()" ng-href="/#!/lojasparceiras/{{store}}">Veja os produtos</a></li>
+						<li  ng-repeat="localStoreType in storeObj.products" >
+							<a ng-click="clickLinkMenu()" ng-href="/#!/lojasparceiras/{{store}}" ng-bind="localStoreType"></a>
+						</li>
+
+					</ul>	
+				</div>							
+			</div>
+		</div>
+		<div ng-show="menu.name==='contatos'" class="row  menu-itens contatos">
+			<div class="item"  ng-repeat="(store,storeObj) in localStores" >
+				<div class="header_nav">
+
+					<h4 ng-bind="storeObj.title"></h4>
+					<ul>
+						<li  ng-repeat="localStoreType in storeObj.products" >
+							<a ng-click="clickLinkMenu()" ng-href="/#!/lojasparceiras/{{store}}" ng-bind="localStoreType"></a>
+						</li>
+
+					</ul>	
+				</div>							
+			</div>
+			<div class="fb-page" data-href="https://www.facebook.com/musicamise" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/musicamise"><a href="https://www.facebook.com/musicamise">Musicamise</a></blockquote></div></div>
+		</div>
+		<!-- <li class="grid" ng-if="localStores"><a class="color2" href="/#!/lojasparceiras/">Lojas Parceiras</a>
+			<div class="megapanel">
+
+				<div class="row">
+					<div class="col1"  ng-repeat="(store,storeObj) in localStores" ng-init="$last ? megamenuDone() : angular.noop()">
+						<div class="header_nav">
+							<h4 ng-bind="storeObj.title"></h4>
+							<ul>
+								<li  ng-repeat="localStoreType in storeObj.products" >
+									<a ng-href="/#!/lojasparceiras/{{store}}" ng-bind="localStoreType"></a>
+								</li>
+
+							</ul>	
+						</div>							
+					</div>
+				</div>
+				<div class="row">
+					<div class="col1" ng-repeat="store in localStores"></div>
+				</div>
+			</div>
+		</li> -->
+	</div>
+	<div class="container">
+		<label  style="    margin-left: 16%;" ng-bind="order.message"></label>
+		<p style="    margin-left: 16%;" ng-bind-html="discount.description"> </p>
+	</div>
+	<div class="logo">
+		<a href="/#!/"><img src="/images/Musicamise_site_Curvas.png"  alt="Musicamise"
+		/></a>
+	</div>
+	<div class="clearfix"> </div>
+	
+	<!-- <div class="search">
+		<form >
+			<input type="search" ng-keyup="$event.keyCode == 13 && search(search.query)" ng-model="search.query" ng-bind="search.query" placeholder="Search">
+		</form>
+	</div> -->
+</div>
