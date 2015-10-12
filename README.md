@@ -1,13 +1,12 @@
 # Guloseimas - Client Side
 Guloseimas client side 
 
-[![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
-[![Musicamise Logo](https://s3-sa-east-1.amazonaws.com/musicamise/Logo.png)](http://www.musicamise.com/)
+[![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/) 
 
 [![Build Status](https://travis-ci.org/meanjs/mean.svg?branch=master)](https://travis-ci.org/meanjs/mean)
 [![Dependencies Status](https://david-dm.org/meanjs/mean.svg)](https://david-dm.org/meanjs/mean)
 
-Musicamise is a ecommecer music lovers. We are basically doing it for fun and love. All the products can be found [here](http://www.musicamise.com/).
+Guloseimas is a ecommecer music lovers. We are basically doing it for fun and love. All the products can be found [here](http://www.musicamise.com/).
 
 This project is live and using Mean.JS see description on how to load:
 
