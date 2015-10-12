@@ -10,6 +10,9 @@ module.exports = function(app) {
 	app.route('/api/order/check')
 		.get(order.getOrderById);
 	
+	app.route('/api/order/calculateEncomenda')
+		.post(order.calculateEncomenda);
+
 	app.route('/api/order/pagseguro')
 		.get(order.processToPagseguro);
 

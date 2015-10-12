@@ -21,8 +21,16 @@ exports.encomenda=function(req,res){
 				message: req.err
 				});
 		}
-
-		 res.json(properties);
+		var estruturaMapped = {};
+		properties.estruturas.forEach(function(estrutura){
+			if(!estruturaMapped[estrutura.estrutura]) 
+				estruturaMapped[estrutura.estrutura] = [];
+			estruturaMapped[estrutura.estrutura].push(estrutura.color);
+		});
+		
+		properties = JSON.parse(JSON.stringify(properties));
+		properties.estruturas = estruturaMapped;
+	 	res.json(properties);
 
 	});
 };

@@ -30,6 +30,14 @@ var objectInventorySchema = {
 		default: '',
 		trim: true
 	},
+	encomenda: {
+		type: Boolean,
+		default: false
+	},
+	temDoce: {
+		type: Boolean,
+		default: true
+	},
 	orderOutOfStock: {
 		type: Boolean,
 		default: true

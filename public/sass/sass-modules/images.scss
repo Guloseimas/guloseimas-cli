@@ -2,6 +2,7 @@
 @import "gender/*.png";
 @import "icons-menu/*.png";
 @import "icons-card/*.png";
+@import "icons-encomenda/*.png";
 @import "favicon/*.png";
 @import "myfunctions";
 
@@ -9,13 +10,38 @@ $icons: sprite-map("icons/*.png", $spacing: 1px, $layout: smart);
 $gender: sprite-map("gender/*.png", $spacing: 1px, $layout: smart);
 $icons-menu: sprite-map("icons-menu/*.png", $spacing: 1px, $layout: smart);
 $icons-card: sprite-map("icons-card/*.png", $spacing: 1px, $layout: smart);
+$icons-encomenda: sprite-map("icons-encomenda/*.png", $spacing: 1px, $layout: smart);
 @include all-icons-sprites; 
 @include all-icons-menu-sprites; 
 @include all-favicon-sprites; 
 @include all-icons-card-sprites; 
+@include all-icons-encomenda-sprites; 
 
 .icon {
 	display: block;
+
+	&.icons-encomenda-folhas_em_ramas{
+		@include sprite-dimensions($icons-encomenda,folhas_em_ramas);
+	}
+	&.icons-encomenda-goiaba{
+		@include sprite-dimensions($icons-encomenda,goiaba);
+	}
+	&.icons-encomenda-hortencias{
+		@include sprite-dimensions($icons-encomenda,hortencias);
+	}
+	&.icons-encomenda-nozes{
+		@include sprite-dimensions($icons-encomenda,nozes);
+	} 
+	&.icons-encomenda-nutella{
+		@include sprite-dimensions($icons-encomenda,nutella);
+	}
+	&.icons-encomenda-romeu_e_julieta{
+		@include sprite-dimensions($icons-encomenda,romeu_e_julieta);
+	}
+	&.icons-encomenda-tulipa{
+		@include sprite-dimensions($icons-encomenda,tulipa);
+	} 
+
 	&.icons-card-CARTAO_DE_CREDITO_VISA{
 		@include sprite-dimensions($icons-card,CARTAO_DE_CREDITO_VISA);
 	}

@@ -1,7 +1,5 @@
 <section class="single-product-page"  data-ng-controller="ProductEncomendaController" data-ng-init="encomenda()">
  <!-- content -->
-
-
 <div class="container">
 	<!-- start content -->
 	<div class="women_main">
@@ -11,84 +9,107 @@
 					<div class="navbar">
 					  <div class="navbar-inner">
 					    <div class="container">
-					<ul>
-					  	<li><a href="#tab1" data-toggle="tab">Apresentação</a></li>
-						<li><a href="#tab2" data-toggle="tab">Flores</a></li>
-						<li><a href="#tab3" data-toggle="tab">Cores</a></li>
-						<li><a href="#tab4" data-toggle="tab">Recheio</a></li>
-						<li><a href="#tab5" data-toggle="tab">Quantidade e valores</a></li>
-						<li><a href="#tab6" data-toggle="tab">Endereço de entrega</a></li>
-						<li><a href="#tab7" data-toggle="tab">Finalizar Compra</a></li>
-					</ul>
+							<ul id="list">
+							  	<li><a >Apresentação</a></li>
+								<li><a >Flores</a></li>
+								<li><a >Cores</a></li>
+								<li><a >Recheio</a></li>
+								<li><a >Encomenda</a></li>
+								<!-- <li><a href="#tab6" data-toggle="tab">Endereço de entrega</a></li>
+								<li><a href="#tab7" data-toggle="tab">Finalizar Compra</a></li> -->
+							</ul>
 					 </div>
 					  </div>
 					</div>
 					<div id="bar" class="progress progress-striped active">
 					  <div class="bar"></div>
 					</div>
-					<div class="tab-content">
-					    <div class="tab-pane" id="tab1">
+					<div id="content" class="tab-content">
+					    <div class="tab-pane active" id="tab1">
 					      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in ante magna. Donec commodo nulla sit amet dolor vulputate hendrerit. Nullam scelerisque purus nec libero pellentesque, sit amet luctus quam fermentum. Duis condimentum risus et diam sodales consectetur. Duis auctor libero sed dui tempus aliquet. Ut eget ante cursus, gravida lectus sed, semper risus. Etiam blandit elit quis congue facilisis. Praesent sollicitudin nibh vitae tellus finibus blandit. Ut vulputate sem urna, vel tristique justo feugiat nec. Sed et interdum nulla.</p>
 					      <p>Curabitur nec sem tincidunt sem congue ultrices. Integer sit amet consectetur elit. Cras congue condimentum finibus. Vivamus rhoncus dui a suscipit tempor. Suspendisse potenti. Duis sed tincidunt tortor. Aliquam mattis quam eget venenatis lacinia. Morbi semper magna vel nulla dignissim laoreet. Nunc et elit justo. Donec sollicitudin, magna sit amet finibus porttitor, augue ex condimentum tellus, sed scelerisque ipsum quam et sem. Suspendisse egestas risus nec sapien iaculis varius. Cras porttitor magna neque, vitae placerat metus porta id. Vivamus vitae tellus id lorem bibendum feugiat.</p>
 					    </div>
 					    <div class="tab-pane" id="tab2">
-							<div class="col-sm-4 " ng-class="masculino">
-								<label class="gender-label" ng-bind="masculino"> </label>
-								<a  ng-mouseenter="picture=true"  ng-mouseleave="picture=false">
-									<i ng-hide="picture" class="icon icons-masculino-o" > </i>
-
-									<i ng-show="picture" class="icon icons-masculino" > </i>
-								</a>
-							</div>
-							<div  class="col-sm-4 "  ng-class="feminino">
-								<label class="gender-label" ng-bind="feminino"> </label>
-								<a   ng-mouseenter="picture1=true" ng-mouseleave="picture1=false">
-									<i ng-hide="picture1" class="icon icons-feminino-o" > </i>
-
-									<i ng-show="picture1" class="icon icons-feminino" > </i>
-								</a>
-								
-							</div>
-							<div   class="col-sm-4 " ng-class="infantil">
-								<label class="gender-label" ng-bind="infantil"> </label>
-								<a ng-mouseenter="picture2=true" ng-mouseleave="picture2=false">
-									<i ng-hide="picture2" class="icon icons-infantil-o" > </i>
-
-									<i ng-show="picture2" class="icon icons-infantil" > </i>
-								</a>
-								
-							</div>
+					    	<div class="row">
+								<div class="col-sm-4 "  ng-repeat="flor in encomendaConfig.tipoDeFlor">
+									<label class="" ng-bind="{{flor}}"> </label>
+									<a ng-href="" style="" ng-click="addTypeFlower(flor)" ng-mouseenter="picture=true"  ng-mouseleave="picture=false">
+										<i ng-class="{'gray':!picture&&flor!=inventory.type}" class="icon icons-encomenda-{{flor}}" > </i>
+									</a>
+								</div>
+					    	</div>
+							
 							<div class="clearfix"> </div>
 					    </div>
 						<div class="tab-pane" id="tab3">
 							<div>
 								<h4 class="desktop-tablet-only" >Cor </h4>
 								<div class="col">
-									<ul ng-init="colors = ['#B34747','#47B35D','#4F4FB4','#BC78E2']" class="w_nav2">
-										<li  ng-repeat="color in colors" class = "color" ng-class="colorMarked==color?'active' : ''">
-											<a  style=" background-color: {{color}}; " ng-click="colorMarked=color" href=""></a>
+									<ul  ng-repeat="(key, value) in encomendaConfig.estruturas" class="w_nav2">
+										<li>{{key}}</li>
+										<li  ng-repeat="color in value" class = "color" ng-class="colorMarked==color?'active' : ''">
+											<a  ng-href=""  style=" background-color: {{color}}; " ng-click="clickColor(color,key)" href=""></a>
 										</li>
 									</ul>
+
 								</div>
+								<br/> flor = {{colorMarkedFlor}}
+								<style type="text/css">
+								     svg rect{
+								     	fill:{{colorMarkedBase}};
+								     }
+
+								    .flor svg path{
+								     	fill:{{colorMarkedFlor[0]}};
+								     }
+								     .flor2 svg path{
+								     	fill:{{colorMarkedFlor[1]}};
+								     }
+								</style>
+								<div class="base" >
+									<ng-include   src="'/images/base.svg'" scope="" onload=""/></ng-include> 
+								</div>
+								<br/>
+								<div class="flor">
+									<ng-include  src="'/images/flower.svg'" scope="" onload=""/></ng-include> 
+								</div>
+								<div class="flor2">
+									<ng-include  src="'/images/flower.svg'" scope="" onload=""/></ng-include> 
+								</div>
+
 							</div>
 					    </div>
 						<div class="tab-pane" id="tab4">
-							4
+						 	<div class="sky-form">
+								<label class="checkbox">
+								<input tabindex="5" type="checkbox" data-ng-model="inventory.temDoce" name="temDoce"   ><i></i>Encomendar com Doce
+								</label>
+							</div>
+							<div class="row"  ng-show="inventory.temDoce">
+								<label class="checkbox">
+								     Escolha um recheio.
+								</label>
+								<div class="col-md-6"  ng-repeat="recheio in encomendaConfig.recheios">
+									<label class="" ng-bind="{{recheio}}"> </label>
+									<a ng-click="addRecheio(recheio)" ng-mouseenter="picture=true"  ng-mouseleave="picture=false">
+										<i ng-class="{'gray':!picture&&recheio!=inventory.recheio}" class="icon icons-encomenda-{{recheio}}" > </i>
+									</a>
+								</div> 
+							</div>
 					    </div>
 						<div class="tab-pane" id="tab5">
-							5
+						    {{current}}
+						    <br/>
+						 	{{inventory}}
 					    </div>
 						<div class="tab-pane" id="tab6">
-							6
 					    </div>
 						<div class="tab-pane" id="tab7">
-							7
 					    </div>
 						<ul class="pager wizard">
-							<li class="previous first" style="display:none;"><a href="#">First</a></li>
-							<li class="previous"><a href="#">Previous</a></li>
-							<li class="next last" style="display:none;"><a href="#">Last</a></li>
-						  	<li class="next"><a href="#">Next</a></li>
+							<li ng-class="{'disabled':current==0}" ><a  ng-click="previous()" >Anterior</a></li>
+						  	<li ng-hide="current==(total-1)" ><a  ng-click="next()" >Próximo</a></li>
+						  	<li ng-show="current==(total-1)" ><a  ng-click="addToCart()" >Próximo</a></li>
 						</ul>
 					</div>	
 				</div>

@@ -15,6 +15,7 @@ var mongoose = require('mongoose'),
 	session = require('express-session'),
 	async = require('async'),
 	ObjectId = require('mongoose').Types.ObjectId,
+	EncomendaProperties = mongoose.model('EncomendaProperties'),
 	_ = require('lodash');
 
 var moment = require('moment');
@@ -605,7 +606,121 @@ exports.updateOrderOrAddItem = function(req, res) {
 	}
 
 };
+exports.processEncomenda = function(req, res) {
+	var key = 'order'+req.sessionID;
+	var discountCode = req.body.discountCode;
+	var giftCard = req.body.giftCard;
 
+	var inventory = req.body.inventory;
+
+	EncomendaProperties.findOne({}).exec(function(err, properties) {
+		if(err){
+		 res.status(400).send({
+				message: req.err
+				});
+		}
+		
+		var estruturaMapped = {};
+		properties.estruturas.forEach(function(estrutura){
+			if(!estruturaMapped[estrutura.estrutura]) 
+				estruturaMapped[estrutura.estrutura] = [];
+			estruturaMapped[estrutura.estrutura].push(estrutura.color);
+		});
+		
+		properties = JSON.parse(JSON.stringify(properties));
+		properties.estruturas = estruturaMapped;
+	 	res.json(properties);
+
+	});
+
+	return res.status(500).send({
+				message: 'err'
+			});
+	
+
+};
+exports.calculateEncomenda = function(req,res){
+   EncomendaProperties.findOne({}).exec(function(err, properties) {
+		if(err){
+		 res.status(400).send({
+				message: err
+				});
+		}
+		console.log('inventory');
+		console.log(req.body);
+		var inventory = req.body;
+		var inventoryObject = new Inventory(inventory);
+		var valueForFlower = properties.flowerPrice
+		                     .filter(function (elem){return elem.name===inventoryObject.type;});
+		var valueForRecheio = properties.recheiosPrice
+		                     .filter(function (elem){return elem.name===inventoryObject.recheio;});
+		console.log(properties.flowerPrice);
+		console.log(properties.recheiosPrice);
+
+		console.log(valueForFlower);
+		console.log(valueForRecheio);
+		var priceFlower = 0;
+		var priceRecheio = 0;
+
+		if(valueForFlower.length>0)
+			priceFlower = valueForFlower[0].price;
+		if(valueForRecheio.length>0)
+			priceRecheio = valueForRecheio[0].price;
+
+		var totalPrice = priceFlower+priceRecheio;
+
+		inventoryObject.quantity = inventoryObject.quantity||1;
+		inventoryObject.priceWithQuantity = totalPrice*(inventoryObject.quantity);
+		inventoryObject.priceWithQuantityFormatted = 'R$'+ numeral(inventoryObject.priceWithQuantity).format('0.00').replace('.',',');
+        inventoryObject.encomenda = true;
+	 	
+	 	if(properties.hasDiscount&&properties.discount){
+	 		if(properties.discount.quantity>=inventoryObject.quantity){
+	 			var value = 0;
+	 			switch(properties.discount.type){
+					case 'value':
+						value = properties.value;
+						break;
+					case 'percent':
+						value = inventoryObject.priceWithQuantity*properties.value/100;
+						break;
+				}
+		 		inventoryObject.priceWithQuantity = inventoryObject.priceWithQuantity-value;
+				inventoryObject.priceWithQuantityFormatted = 'R$'+ numeral(inventoryObject.priceWithQuantity).format('0.00').replace('.',',');
+	 		}
+	 	}
+
+	 	res.json(inventoryObject);
+
+	});
+};
+exports.updateOrderOrAddItemEncomenda = function(req, res) {
+	var key = 'order'+req.sessionID;
+	var discountCode = req.body.discountCode;
+	var giftCard = req.body.giftCard;
+
+	var inventory = req.body.inventory;
+
+	var inventoryObject = new Inventory(inventory);
+
+	myCache.get(key, function( err, orderCachedJsonString ){
+		if(err){ 	
+			console.log('error:'+ err);
+			return res.status(500).send({
+				message: err
+			});
+		}
+		var order ;
+		if(orderCachedJsonString){
+			order = new Order(JSON.parse(orderCachedJsonString));
+		}else{
+			order = new Order();
+		}
+		order.products.push(inventoryObject);
+		return processOrder(req,res,order,discountCode,giftCard);
+	});
+
+};
 exports.removeItemCart = function(req, res) {
 	var key = 'order'+req.sessionID;
 	// var quantity = parseInt(req.body.quantity)||1;

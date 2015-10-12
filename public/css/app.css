@@ -7345,6 +7345,10 @@ button.close {
   background: url('../images/icons-card-s6356cdeebb.png') no-repeat;
 }
 
+.icons-encomenda-sprite, .icons-encomenda-folhas_em_ramas, .icons-encomenda-goiaba, .icons-encomenda-hortencias, .icons-encomenda-nozes, .icons-encomenda-nutella, .icons-encomenda-romeu_e_julieta, .icons-encomenda-tulipa {
+  background: url('../images/icons-encomenda-s49ffbb91f8.png') no-repeat;
+}
+
 .favicon-sprite, .favicon-android-icon-144x144, .favicon-android-icon-192x192, .favicon-android-icon-36x36, .favicon-android-icon-48x48, .favicon-android-icon-72x72, .favicon-android-icon-96x96, .favicon-apple-icon-114x114, .favicon-apple-icon-120x120, .favicon-apple-icon-144x144, .favicon-apple-icon-152x152, .favicon-apple-icon-180x180, .favicon-apple-icon-57x57, .favicon-apple-icon-60x60, .favicon-apple-icon-72x72, .favicon-apple-icon-76x76, .favicon-apple-icon-precomposed, .favicon-apple-icon, .favicon-favicon-16x16, .favicon-favicon-32x32, .favicon-favicon-96x96, .favicon-ms-icon-144x144, .favicon-ms-icon-150x150, .favicon-ms-icon-310x310, .favicon-ms-icon-70x70 {
   background: url('../images/favicon-s8ef1293992.png') no-repeat;
 }
@@ -7597,8 +7601,64 @@ button.close {
   background-position: 0 -288px;
 }
 
+.icons-encomenda-folhas_em_ramas {
+  background-position: 0 -908px;
+}
+
+.icons-encomenda-goiaba {
+  background-position: 0 -1135px;
+}
+
+.icons-encomenda-hortencias {
+  background-position: 0 -681px;
+}
+
+.icons-encomenda-nozes {
+  background-position: 0 -1362px;
+}
+
+.icons-encomenda-nutella {
+  background-position: 0 0;
+}
+
+.icons-encomenda-romeu_e_julieta {
+  background-position: 0 -454px;
+}
+
+.icons-encomenda-tulipa {
+  background-position: 0 -227px;
+}
+
 .icon {
   display: block;
+}
+.icon.icons-encomenda-folhas_em_ramas {
+  height: 227px;
+  width: 380px;
+}
+.icon.icons-encomenda-goiaba {
+  height: 227px;
+  width: 380px;
+}
+.icon.icons-encomenda-hortencias {
+  height: 227px;
+  width: 380px;
+}
+.icon.icons-encomenda-nozes {
+  height: 227px;
+  width: 380px;
+}
+.icon.icons-encomenda-nutella {
+  height: 227px;
+  width: 380px;
+}
+.icon.icons-encomenda-romeu_e_julieta {
+  height: 227px;
+  width: 380px;
+}
+.icon.icons-encomenda-tulipa {
+  height: 227px;
+  width: 380px;
 }
 .icon.icons-card-CARTAO_DE_CREDITO_VISA {
   height: 32px;
@@ -17633,6 +17693,24 @@ i.mail {
 }
 .search input::-webkit-input-placeholder {
   color: #999;
+}
+
+img.gray {
+  filter: gray;
+  /* IE6-9 */
+  filter: grayscale(1);
+  /* Firefox 35+ */
+  -webkit-filter: grayscale(1);
+  /* Google Chrome, Safari 6+ & Opera 15+ */
+}
+
+i.gray {
+  filter: gray;
+  /* IE6-9 */
+  filter: grayscale(1);
+  /* Firefox 35+ */
+  -webkit-filter: grayscale(1);
+  /* Google Chrome, Safari 6+ & Opera 15+ */
 }
 
 .arriv h3 {

@@ -17,23 +17,48 @@ var estruturaInventorySchema = new Schema({
     estrutura: {type: String,enum: estuturaEnum,default:'' },
     color: {type: String,default:'' }
 });
+var priceInventorySchema = new Schema({
+    name: {type: String,default:'' },
+    price: {type: Number,default:0 }
+});
+var discountSchema = new Schema({
+    type: {type: String,default:'' },
+    quantity: {type: Number,default:0 },
+    value: {type: Number,default:0 }
+});
 var objectEncomendaPropertiesSchema = {
     recheios:{
         type:[String],
         default: [],
-        select: false
+        select: true
     },
     tipoDeFlor:{
         type:[String],
         default: [],
-        select: false
+        select: true
     },
     availableEncomenda: {
         type: Boolean,
         default:false
     },
+    discount: {
+        type: Schema.Types.Mixed,
+        default:{}
+    },
+    hasDiscount: {
+        type: Boolean,
+        default:false
+    },
     estruturas: {
         type: [estruturaInventorySchema],
+        default:[]
+    },
+    recheiosPrice: {
+        type: [priceInventorySchema],
+        default:[]
+    },
+    flowerPrice: {
+        type: [priceInventorySchema],
         default:[]
     },
     _id:{type:String,default:''}

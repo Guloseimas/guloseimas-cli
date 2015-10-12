@@ -52,6 +52,11 @@ angular.module('products').factory('Order', ['$resource',
 						isArray: false,
 						params:{action:'removeItem'}
 						
+         		},'calculateEncomenda': {
+						method: 'POST', 
+						isArray: false,
+						params:{action:'calculateEncomenda'}
+						
          		},'addItem': {
 						method: 'POST', 
 						isArray: false,
