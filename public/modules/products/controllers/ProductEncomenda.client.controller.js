@@ -123,6 +123,24 @@ angular.module('products').controller('ProductEncomendaController', ['$rootScope
 				console.log('progressback '+ progressback);
 			});
 		};
+		$scope.addToCart = function(){
+			if($scope.inventory){
+				$scope.orderCall = Order.addItemEncomenda($scope.inventory);
+				$scope.orderCall.$promise.then(function(response,error,progressback){
+					// console.log(p);
+					// ga('send', 'event', 'button', 'click', id);
+
+					if(response.order){
+						$rootScope.order = response.order;
+						$location.path('/cart');		
+					}else if(error){
+						$location.path('/products');		
+					}
+
+
+				});
+			}
+		};
 
 	}
 ]);

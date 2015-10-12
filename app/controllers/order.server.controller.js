@@ -35,9 +35,11 @@ var discountIsApplicable = function(cartItems,discountObject){
 	var allProductSlugs = [];
 	var total = 0;
 	cartItems.forEach(function(product,index){
-	 	allCollections = allCollections.concat(cartItems[index].product.collectionsSlugs);
-	 	allProductSlugs.push(cartItems[index].product.slug);
-	 	total = total+cartItems[index].priceWithQuantity;
+		if(!product.encomenda){
+		 	allCollections = allCollections.concat(cartItems[index].product.collectionsSlugs);
+		 	allProductSlugs.push(cartItems[index].product.slug);
+		 	total = total+cartItems[index].priceWithQuantity;
+		}
 	});
 	var discountCodeIsApplicable = false;
 	
@@ -76,11 +78,13 @@ var contability = function(order,discountObject,giftCardObject){
 	order.totalItems = 0;
 	if(order.products.length>0){
 		order.products.forEach(function(product,index){
-
-			order.products[index].priceWithQuantity = order.products[index].quantity* order.products[index].product.price;
-			order.products[index].priceWithQuantityFormatted = 'R$'+ numeral(order.products[index].priceWithQuantity).format('0.00').replace('.',',');
-			
-			order.totalValueItems = order.totalValueItems +  order.products[index].quantity* order.products[index].product.price;
+			console.log('encomenda');
+			console.log(product);
+			if(!product.encomenda){
+				order.products[index].priceWithQuantity = order.products[index].quantity* order.products[index].product.price;
+				order.products[index].priceWithQuantityFormatted = 'R$'+ numeral(order.products[index].priceWithQuantity).format('0.00').replace('.',',');
+			}
+			order.totalValueItems = order.totalValueItems +  order.products[index].priceWithQuantity;
 		 	order.totalItems =  order.totalItems +order.products[index].quantity;
 
 		});
@@ -362,8 +366,11 @@ var processOrder = function(req,res,order,discountCodePost,giftCardPost){
 			 		}
 			 		//check if all the order.products returned if not you can exclude already 
 			 		//has not quantity==0 or just got orderOutOfStock true
-			 		var message = updateOrderByAvaibleInventories(order,inventories);
- 					order.message = message;
+			 		if(inventories&&inventories.length>0){
+			 			var message = updateOrderByAvaibleInventories(order,inventories);
+ 						order.message = message;
+			 		}
+
  					done(err,order);
 
 				 });
@@ -646,19 +653,14 @@ exports.calculateEncomenda = function(req,res){
 				message: err
 				});
 		}
-		console.log('inventory');
-		console.log(req.body);
+
 		var inventory = req.body;
 		var inventoryObject = new Inventory(inventory);
 		var valueForFlower = properties.flowerPrice
 		                     .filter(function (elem){return elem.name===inventoryObject.type;});
 		var valueForRecheio = properties.recheiosPrice
 		                     .filter(function (elem){return elem.name===inventoryObject.recheio;});
-		console.log(properties.flowerPrice);
-		console.log(properties.recheiosPrice);
 
-		console.log(valueForFlower);
-		console.log(valueForRecheio);
 		var priceFlower = 0;
 		var priceRecheio = 0;
 
@@ -699,13 +701,12 @@ exports.updateOrderOrAddItemEncomenda = function(req, res) {
 	var discountCode = req.body.discountCode;
 	var giftCard = req.body.giftCard;
 
-	var inventory = req.body.inventory;
+	var inventory = req.body;
 
 	var inventoryObject = new Inventory(inventory);
 
 	myCache.get(key, function( err, orderCachedJsonString ){
 		if(err){ 	
-			console.log('error:'+ err);
 			return res.status(500).send({
 				message: err
 			});

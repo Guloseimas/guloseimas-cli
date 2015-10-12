@@ -13,6 +13,9 @@ module.exports = function(app) {
 	app.route('/api/order/calculateEncomenda')
 		.post(order.calculateEncomenda);
 
+	app.route('/api/order/updateOrderOrAddItemEncomenda')
+		.post(order.updateOrderOrAddItemEncomenda);
+		
 	app.route('/api/order/pagseguro')
 		.get(order.processToPagseguro);
 

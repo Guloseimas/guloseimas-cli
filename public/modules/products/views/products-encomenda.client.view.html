@@ -101,6 +101,9 @@
 						    {{current}}
 						    <br/>
 						 	{{inventory}}
+						 	<ul class="qty">
+								<li><p>Quantidade : <input type='number' class='quantity' ng-model='inventory.quantity' min="1" max="100" ng-change="calculate()" ng-value="inventory.quantity"></p></li>
+							</ul>
 					    </div>
 						<div class="tab-pane" id="tab6">
 					    </div>
@@ -109,7 +112,7 @@
 						<ul class="pager wizard">
 							<li ng-class="{'disabled':current==0}" ><a  ng-click="previous()" >Anterior</a></li>
 						  	<li ng-hide="current==(total-1)" ><a  ng-click="next()" >Próximo</a></li>
-						  	<li ng-show="current==(total-1)" ><a  ng-click="addToCart()" >Próximo</a></li>
+						  	<li ng-show="current==(total-1)" ><a  ng-click="addToCart()" >adicionar</a></li>
 						</ul>
 					</div>	
 				</div>

@@ -29,7 +29,7 @@ var objectInventorySchema = {
 	},
 	encomenda: {
 		type: Boolean,
-		default: false
+		default: true
 	},
 	temDoce: {
 		type: Boolean,
@@ -37,11 +37,11 @@ var objectInventorySchema = {
 	},
 	orderOutOfStock: {
 		type: Boolean,
-		default: true
+		default: false
 	},
 	sellInOutOfStock: {
 		type: Boolean,
-		default: true
+		default: false
 	},
 	recheio: {
 		type: String,
@@ -67,7 +67,7 @@ var objectInventorySchema = {
 	},
 	priceWithQuantityFormatted: {
 		type: String,
-		default: '',
+		default: 'R$ 0,00',
 		trim: true
 	},
 	product:{type: DBRef, resolve: true}
