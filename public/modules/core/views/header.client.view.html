@@ -3,20 +3,20 @@
 		<div class="container" >
 			<div class="header_top row">
 				<div class="top_left col-xs-3">
-					<ul  class="mainmenu desktop-tablet-only" id="mainmenu">
+					<!-- <ul  class="mainmenu desktop-tablet-only" id="mainmenu">
 						<li ><a ng-href="#!/" ng-click="menu.show=false"><i class="musicamise icon icons-menu-logo-cor" > </i> </a></li>
 						<li ng-show="!isEmpty(loja.gender)"><a ng-href="" ng-click="clickIconMenu('camisas')"><i class="camisas icon icons-menu-camisa-cor"  > </i></a></li>
 						<li ng-show="!isEmpty(loja.otherProducts)"><a ng-href="" ng-click="clickIconMenu('other-products')"><i class="other-products icon icons-menu-caneca-cor"   > </i></a></li>
 						<li ng-show="!isEmpty(localStores)"  ><a ng-href="" ng-click="clickIconMenu('parceiros')"><i class="parceiros icon icons-menu-parceiros-cor" > </i></a></li>
 						<li ng-show="true"><a ng-href="" ng-click="clickIconMenu('contatos')"><i class="contato icon icons-menu-contato-cor"> </i></a></li>
-					</ul>
+					</ul> -->
 					
 					<ul  class="helpmenu desktop-tablet-only">
 						<li><a href="/#!/centrodeajuda">Ajuda</a></li>|
 						<li><a href="/#!/contact">Contato</a></li>|
 						<li><a href="/#!/politicas">Formas de entrega</a></li>
 					</ul>
-					<nav id="myNavmenu" class="mobile-only navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+					<!-- <nav id="myNavmenu" class="mobile-only navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
 					  	<div class="navmenu-header">
 						  	<a class="navmenu-brand" href="#!/"> <i class="icon icons-simbolo_Logo"></i>  <span>Musicamise</span></a> 
 					  	</div>
@@ -37,13 +37,7 @@
 						  	<h3>Parceiros</h3>
 					    	<a ng-repeat="(store,storeObj) in localStores" ng-href="/#!/lojasparceiras/{{store}}" ng-bind="storeObj.title"></a>
 					 	</div>
-					  
-					 <!--  <ul class="nav navmenu-nav">
-					    <li class="active"><a href="#">Home</a></li>
-					    <li><a href="#">Link</a></li>
-					    <li><a href="#">Link</a></li>
-					  </ul> -->
-					</nav>
+					</nav> -->
 			  		<button type="button" class="mobile-only navbar-toggle floatleft" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
 					   <i class="fa fa-bars fa-2x"> </i>
 				  	</button>
@@ -121,23 +115,14 @@
 			</div>
 		</div>
 	</div>
-	<div ng-init="bindMenuEvent()" ng-show="menu.show" id="menu-expanded" class="menu-expanded">
+	<!-- <div ng-init="bindMenuEvent()" ng-show="menu.show" id="menu-expanded" class="menu-expanded">
 		
-		<i class="fa fa-music fa-4x rightpercent10 padtpercent6"></i>
-		<i class="fa fa-music fa-3x rightpercent20 padtpercent11"></i>
-		<i class="fa fa-music fa-4x rightpercent40 padtpercent5"></i>
-		<i class="fa fa-music fa-5x rightpercent50 padtpercent2"></i>
-		<i class="fa fa-music fa-5x leftpercent10 padtpercent12"></i>
-		<i class="fa fa-music fa-2x leftpercent20 padtpercent13"></i>
-		<i class="fa fa-music fa-4x leftpercent40 padtpercent10"></i>
-		<!-- start header menu -->
 		<div ng-show="menu.name==='camisas'" class=" menu-itens camisas">
 			<div class="item" ng-repeat="(key, value) in loja.gender" >
 				<div class="header_nav">
 					<h4 ng-bind="key"></h4>
 					<ul >
 						<li><a ng-click="clickLinkMenu()" ng-href="/#!/products/gender/{{key}}">Todos os modelos</a></li>
-						<!--{{value}}-->
 						<li  ng-repeat="typeClothes in value" >
 							<a ng-click="clickLinkMenu()" ng-href="/#!/{{typeClothes}}/{{key}}" ng-bind="typeClothes"></a>
 						</li>
@@ -150,7 +135,7 @@
 					<h4><a ng-click="clickLinkMenu()" ng-href="/#!/products/esgotados" >Esgotadas</a></h4>
 				</div>							
 			</div>
-			<!-- <div class="item"  ng-repeat="(key, value) in loja.collection" >
+			 <div class="item"  ng-repeat="(key, value) in loja.collection" >
 				<div class="header_nav">
 					<h4 ng-bind="key"></h4>
 					<ul >
@@ -161,7 +146,7 @@
 
 					</ul>	
 				</div>							
-			</div> -->
+			</div> 
 		</div>
 		<div ng-show="menu.name==='other-products'" class="row  menu-itens other-products">
 			<div class="item"  ng-repeat="(key, value) in loja.otherProducts" >
@@ -206,7 +191,7 @@
 			</div>
 			<div class="fb-page" data-href="https://www.facebook.com/musicamise" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/musicamise"><a href="https://www.facebook.com/musicamise">Musicamise</a></blockquote></div></div>
 		</div>
-		<!-- <li class="grid" ng-if="localStores"><a class="color2" href="/#!/lojasparceiras/">Lojas Parceiras</a>
+		 <li class="grid" ng-if="localStores"><a class="color2" href="/#!/lojasparceiras/">Lojas Parceiras</a>
 			<div class="megapanel">
 
 				<div class="row">
@@ -226,8 +211,8 @@
 					<div class="col1" ng-repeat="store in localStores"></div>
 				</div>
 			</div>
-		</li> -->
-	</div>
+		</li> 
+	</div> -->
 	<div class="container">
 		<label  style="    margin-left: 16%;" ng-bind="order.message"></label>
 		<p style="    margin-left: 16%;" ng-bind-html="discount.description"> </p>
