@@ -73,14 +73,13 @@
 				 		<img placehold="{{product.product.images[0].url}}" class="img-responsive" alt=""/>
 					</div>
 				   	<div class="cart-item-info">
-						<h3 ng-bind="product.product.title+' - '+product.type"></h3>
+						<h3 ng-show="!product.encomenda" ng-bind="product.product.title+' - '+product.type"></h3>
+						<h3 ng-show="product.encomenda" >Encomenda</h3>
 						<ul class="qty">
-							<li><p><span ng-bind="product.genderSlug"></span></p></li>
-							<li><p>Tamanho : <span ng-bind="product.size"></span></p></li>
 							<li><p>Quantidade : <span ng-bind="product.quantity"></span></p></li>
 						</ul>
 					 	<div class="delivery">
-						 	<p><strong>Total :&nbsp;&nbsp;</strong> <span ng-bind="product.priceWithQuantityFormatted"></span></p>
+				 			<p><strong>Total :&nbsp;&nbsp;</strong> <span ng-bind="product.priceWithQuantityFormatted"></span></p>
 					 		<div class="clearfix"></div>
 				        </div>	
 					 	<div class="delivery" ng-show="order.shippingAddress.prazo">
@@ -89,8 +88,10 @@
 						 	<p >Entregamos em até &nbsp;
 						 	<span ng-bind="order.shippingAddress.prazo"> </span></p>
 					 		<div class="clearfix"></div>
-				        </div>	
+				        </div>		
 				   	</div>
+			   		<div class="clearfix"></div>
+			  	</div>
 			   		<div class="clearfix"></div>
 			  	</div>
 		 	</div>
