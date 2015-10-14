@@ -19,6 +19,10 @@ angular.module('checkout').factory('OrderCheckout', ['$resource',
 						method: 'POST', 
 						isArray: false,
 						params:{action:'updateOrderOrAddItem'}
+         		},'addItemEncomenda': {
+						method: 'POST', 
+						isArray: false,
+						params:{action:'updateOrderOrAddItemEncomenda'}
          		},'addDiscountCode': {
 						method: 'POST', 
 						isArray: false,

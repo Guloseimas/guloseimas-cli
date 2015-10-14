@@ -125,7 +125,7 @@ angular.module('products').controller('ProductEncomendaController', ['$rootScope
 		};
 		$scope.addToCart = function(){
 			if($scope.inventory){
-				$scope.orderCall = Order.addItemEncomenda($scope.inventory);
+				$scope.orderCall = Order.addItemEncomenda({inventory:$scope.inventory});
 				$scope.orderCall.$promise.then(function(response,error,progressback){
 					// console.log(p);
 					// ga('send', 'event', 'button', 'click', id);

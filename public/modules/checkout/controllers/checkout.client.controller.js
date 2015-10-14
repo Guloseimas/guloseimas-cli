@@ -202,11 +202,25 @@ angular.module('checkout').controller('CheckoutController', ['$rootScope','$wind
 			$location.path('/cart');
 			$scope.cartInit();	
 		};
-		$scope.updateQuantity = function(id,quantity){
-			if(id){	
-				if(quantity<5){
+		$scope.updateQuantity = function(encomenda,id,quantity){
+			if(id){
+				if(!encomenda){	
+					if(quantity<5){
+						blockUI.start();
+						$scope.orderCall = OrderCheckout.addItem({id:id,quantity:quantity});
+						$scope.orderCall.$promise.then(function(response,error,progressback){
+							if(!jQuery.isEmptyObject(response.order)){
+								$rootScope.order = response.order;
+							}
+							blockUI.stop();
+						},function(reason){
+							console.log(reason);
+							blockUI.stop();
+						});
+					}
+				}else{
 					blockUI.start();
-					$scope.orderCall = OrderCheckout.addItem({id:id,quantity:quantity});
+					$scope.orderCall = OrderCheckout.addItemEncomenda({id:id,quantity:quantity});
 					$scope.orderCall.$promise.then(function(response,error,progressback){
 						if(!jQuery.isEmptyObject(response.order)){
 							$rootScope.order = response.order;
@@ -216,8 +230,10 @@ angular.module('checkout').controller('CheckoutController', ['$rootScope','$wind
 						console.log(reason);
 						blockUI.stop();
 					});
-				} 
-			}
+				}
+			} 
+
+
 			$location.path('/cart');
 		};
 		$scope.applyDiscount = function(discountCode){

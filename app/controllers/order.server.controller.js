@@ -647,14 +647,14 @@ exports.processEncomenda = function(req, res) {
 
 };
 exports.calculateEncomenda = function(req,res){
-   EncomendaProperties.findOne({}).exec(function(err, properties) {
+	var inventory = req.body;
+ 	EncomendaProperties.findOne({}).exec(function(err, properties) {
 		if(err){
 		 res.status(400).send({
 				message: err
 				});
 		}
 
-		var inventory = req.body;
 		var inventoryObject = new Inventory(inventory);
 		var valueForFlower = properties.flowerPrice
 		                     .filter(function (elem){return elem.name===inventoryObject.type;});
@@ -691,19 +691,19 @@ exports.calculateEncomenda = function(req,res){
 				inventoryObject.priceWithQuantityFormatted = 'R$'+ numeral(inventoryObject.priceWithQuantity).format('0.00').replace('.',',');
 	 		}
 	 	}
-
 	 	res.json(inventoryObject);
 
 	});
 };
+
 exports.updateOrderOrAddItemEncomenda = function(req, res) {
 	var key = 'order'+req.sessionID;
 	var discountCode = req.body.discountCode;
 	var giftCard = req.body.giftCard;
 
-	var inventory = req.body;
-
-	var inventoryObject = new Inventory(inventory);
+	var inventory = req.body.inventory;
+	var inventoryId = req.body.id;
+	var quantity  = parseInt(req.body.quantity)||1;
 
 	myCache.get(key, function( err, orderCachedJsonString ){
 		if(err){ 	
@@ -717,8 +717,79 @@ exports.updateOrderOrAddItemEncomenda = function(req, res) {
 		}else{
 			order = new Order();
 		}
-		order.products.push(inventoryObject);
-		return processOrder(req,res,order,discountCode,giftCard);
+		if(inventory){
+			console.log("inventory here");
+			var inventoryObject = new Inventory(inventory);
+			inventoryObject._id = "encomenda-"+order.products.length;
+
+			order.products.push(inventoryObject);
+		}else{
+			console.log("update inventory");
+			var orderContains = false,inventoryIndex=-1;
+			order.products.forEach(function(inventory,index){
+				if(inventory._id+''===inventoryId+''){
+					orderContains=true;
+					inventoryIndex = index;
+				}
+			});
+
+			if(order.products&&orderContains){
+				order.products[inventoryIndex].quantity = quantity;
+			}
+		}
+
+		EncomendaProperties.findOne({}).exec(function(err, properties) {
+			if(err){
+			 res.status(400).send({
+					message: err
+					});
+			}
+			for(var i=0;i<order.products.length;i++){
+				if(order.products[i]&&order.products[i].encomenda){
+
+					var inventoryObject = new Inventory(order.products[i]);
+					var valueForFlower = properties.flowerPrice
+					                     .filter(function (elem){return elem.name===inventoryObject.type;});
+					var valueForRecheio = properties.recheiosPrice
+					                     .filter(function (elem){return elem.name===inventoryObject.recheio;});
+
+					var priceFlower = 0;
+					var priceRecheio = 0;
+
+					if(valueForFlower.length>0)
+						priceFlower = valueForFlower[0].price;
+					if(valueForRecheio.length>0)
+						priceRecheio = valueForRecheio[0].price;
+
+					var totalPrice = priceFlower+priceRecheio;
+
+					inventoryObject.quantity = inventoryObject.quantity||1;
+					inventoryObject.priceWithQuantity = totalPrice*(inventoryObject.quantity);
+					inventoryObject.priceWithQuantityFormatted = 'R$'+ numeral(inventoryObject.priceWithQuantity).format('0.00').replace('.',',');
+			        inventoryObject.encomenda = true;
+				 	
+				 	if(properties.hasDiscount&&properties.discount){
+				 		if(properties.discount.quantity>=inventoryObject.quantity){
+				 			var value = 0;
+				 			switch(properties.discount.type){
+								case 'value':
+									value = properties.value;
+									break;
+								case 'percent':
+									value = inventoryObject.priceWithQuantity*properties.value/100;
+									break;
+							}
+					 		inventoryObject.priceWithQuantity = inventoryObject.priceWithQuantity-value;
+							inventoryObject.priceWithQuantityFormatted = 'R$'+ numeral(inventoryObject.priceWithQuantity).format('0.00').replace('.',',');
+				 		}
+				 	}
+				 	order.products[i] = inventoryObject;
+				}
+			}
+			return processOrder(req,res,order,discountCode,giftCard);
+
+		});
+
 	});
 
 };
