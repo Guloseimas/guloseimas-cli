@@ -162,27 +162,30 @@ var updateOrderByAvaibleInventories = function(order,inventories){
 	var toRemove = [];
 	var message = '';
 	order.products.forEach(function(productOrder,productOrderIndex){
-		var inventoryToCompare ;
+		if(!productOrder.encomenda){
 
- 		inventories.forEach(function(inventory,index){
- 			if(productOrder._id+''===inventory._id+''){
- 				inventoryToCompare = inventory;
- 			}
-		});
+			var inventoryToCompare ;
+
+	 		inventories.forEach(function(inventory,index){
+	 			if(productOrder._id+''===inventory._id+''){
+	 				inventoryToCompare = inventory;
+	 			}
+			});
 
 
- 		if(!inventoryToCompare||
- 			inventoryToCompare&&
- 			inventoryToCompare.sellInOutOfStock===false&&
- 			inventoryToCompare.quantity<productOrder.quantity){
+	 		if(!inventoryToCompare||
+	 			inventoryToCompare&&
+	 			inventoryToCompare.sellInOutOfStock===false&&
+	 			inventoryToCompare.quantity<productOrder.quantity){
 
- 			console.log('entrou em message');
+	 			console.log('entrou em message');
 
-			message = message+ 'Produto '+ productOrder.product.title+' fora de estoque, desculpe o inconveniente!\n';
-			toRemove.push(productOrder);
+				message = message+ 'Produto '+ productOrder.product.title+' fora de estoque, desculpe o inconveniente!\n';
+				toRemove.push(productOrder);
 
-			console.log('message'); 				
-			console.log(message); 		
+				console.log('message'); 				
+				console.log(message); 		
+			}
 		}
 
  	});
@@ -695,7 +698,9 @@ exports.calculateEncomenda = function(req,res){
 
 	});
 };
-
+var equals = function (value) {
+  return value >= 10;
+}
 exports.updateOrderOrAddItemEncomenda = function(req, res) {
 	var key = 'order'+req.sessionID;
 	var discountCode = req.body.discountCode;
@@ -718,13 +723,13 @@ exports.updateOrderOrAddItemEncomenda = function(req, res) {
 			order = new Order();
 		}
 		if(inventory){
-			console.log("inventory here");
+			console.log('inventory here');
 			var inventoryObject = new Inventory(inventory);
-			inventoryObject._id = "encomenda-"+order.products.length;
+			inventoryObject._id = 'encomenda-'+order.products.length;
 
 			order.products.push(inventoryObject);
 		}else{
-			console.log("update inventory");
+			console.log('update inventory');
 			var orderContains = false,inventoryIndex=-1;
 			order.products.forEach(function(inventory,index){
 				if(inventory._id+''===inventoryId+''){
