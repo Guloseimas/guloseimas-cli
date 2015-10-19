@@ -12,7 +12,7 @@ var DBRef = mongoose.SchemaTypes.DBRef;
  */
  
 var estuturaEnum = {
-  values: 'Base Flores'.split(' '),
+  values: 'Base Flores base flor'.split(' '),
   message: 'enum validator failed for path `{PATH}` with value `{VALUE}`'
 };
 var estruturaInventorySchema = new Schema({

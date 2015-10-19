@@ -700,7 +700,7 @@ exports.calculateEncomenda = function(req,res){
 };
 var equals = function (value) {
   return value >= 10;
-}
+};
 exports.updateOrderOrAddItemEncomenda = function(req, res) {
 	var key = 'order'+req.sessionID;
 	var discountCode = req.body.discountCode;
@@ -725,6 +725,7 @@ exports.updateOrderOrAddItemEncomenda = function(req, res) {
 		if(inventory){
 			console.log('inventory here');
 			var inventoryObject = new Inventory(inventory);
+										
 			inventoryObject._id = 'encomenda-'+order.products.length;
 
 			order.products.push(inventoryObject);
@@ -766,8 +767,7 @@ exports.updateOrderOrAddItemEncomenda = function(req, res) {
 					if(valueForRecheio.length>0)
 						priceRecheio = valueForRecheio[0].price;
 
-					var totalPrice = priceFlower+priceRecheio;
-
+					var totalPrice = priceFlower+priceRecheio; 
 					inventoryObject.quantity = inventoryObject.quantity||1;
 					inventoryObject.priceWithQuantity = totalPrice*(inventoryObject.quantity);
 					inventoryObject.priceWithQuantityFormatted = 'R$'+ numeral(inventoryObject.priceWithQuantity).format('0.00').replace('.',',');
@@ -1026,10 +1026,19 @@ exports.processToPagseguro = function(req,res){
 
 		        //products
 				order.products.forEach(function(inventory,index){
-				   	paymentParameters['itemId'+(index+1)] = inventory._id.toString();
-			        paymentParameters['itemDescription'+(index+1)] = inventory.product.title;
-			        paymentParameters['itemAmount'+(index+1)]  = numeral(inventory.product.price).format('0.00'); //maior que 0.00 e menor ou igual a 9999999.00.
-			        paymentParameters['itemQuantity'+(index+1)]  =  inventory.quantity;//Um número inteiro maior ou igual a 1 e menor ou igual a 999.
+					if(inventory.encomenda){
+					   	paymentParameters['itemId'+(index+1)] = inventory._id.toString();
+				        paymentParameters['itemDescription'+(index+1)] = 'Encomenda';
+				        paymentParameters['itemAmount'+(index+1)]  = numeral(inventory.priceWithQuantity/inventory.quantity).format('0.00'); //maior que 0.00 e menor ou igual a 9999999.00.
+				        paymentParameters['itemQuantity'+(index+1)]  =  inventory.quantity;//Um número inteiro maior ou igual a 1 e menor ou igual a 999.
+
+					}else{
+
+					   	paymentParameters['itemId'+(index+1)] = inventory._id.toString();
+				        paymentParameters['itemDescription'+(index+1)] = inventory.product.title;
+				        paymentParameters['itemAmount'+(index+1)]  = numeral(inventory.product.price).format('0.00'); //maior que 0.00 e menor ou igual a 9999999.00.
+				        paymentParameters['itemQuantity'+(index+1)]  =  inventory.quantity;//Um número inteiro maior ou igual a 1 e menor ou igual a 999.
+					}
 			        // paymentParameters.itemShippingCost1 = ''; //maior que 0.00 e menor ou igual a 9999999.00.
 			        // paymentParameters.itemWeight1 =  ''; // A soma dos pesos de todos os produtos não pode ultrapassar 30000 gramas
 				});
